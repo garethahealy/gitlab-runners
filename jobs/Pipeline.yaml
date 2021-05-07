@@ -1,0 +1,30 @@
+- project:
+    name: 'ukiconsulting-gitlab-runner - Pipeline'
+    folder: 'ukiconsulting-gitlab-runner'
+
+    jobs:
+      - 'pipeline-job-template':
+          job_name: 'Build and Deploy'
+          job_description: 'Build and deploy {name}'
+          pipeline_script_path: 'Jenkinsfile'
+          concurrent: false
+
+# This is a parameterized job template which is realized into the jobs above
+- job-template:
+    id: 'pipeline-job-template'
+    name: '{folder}/{name} - {job_name}'
+    description: '{job_description}'
+    project-type: 'pipeline'
+    sandbox: true
+    concurrent: '{concurrent}'
+    pipeline-scm:
+      scm:
+        - git:
+            url: 'https://github.com/garethahealy/gitlab-runners.git'
+            branches:
+              - 'origin/master'
+            clean:
+              before: true
+            skip-tag: true
+      script-path: '{pipeline_script_path}'
+      lightweight-checkout: true
