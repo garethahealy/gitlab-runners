@@ -24,6 +24,9 @@ objects:
     apiGroup: rbac.authorization.k8s.io
     kind: ClusterRole
     name: edit
+  subjects:
+  - kind: ServiceAccount
+    name: gitlab-runner
 - apiVersion: v1
   kind: ConfigMap
   metadata:
