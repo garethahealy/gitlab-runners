@@ -96,6 +96,8 @@ objects:
         environment = ["HOME=/tmp"]
         [runners.kubernetes]
           image = "ubuntu:16.04"
+          cpu_limit = "1000m"
+          helper_cpu_limit = "1000m"
     configure: |
       set -e
       cp /init-secrets/* /secrets
